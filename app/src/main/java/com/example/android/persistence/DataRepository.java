@@ -2,8 +2,10 @@ package com.example.android.persistence;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
+import android.support.v7.widget.GridLayoutManager;
 
 import com.example.android.persistence.db.AppDatabase;
+import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 
 import java.util.List;
@@ -42,7 +44,7 @@ public class DataRepository {
     }
 
     /**
-     * Get the list of products from the database and get notified when the data changes.
+     * Get the list of Teams from the database and get notified when the data changes.
      */
     public LiveData<List<TeamEntity>> getTeams() {
         return mObservableTeams;
@@ -50,5 +52,13 @@ public class DataRepository {
 
     public LiveData<TeamEntity> loadTeam(final int teamId) {
         return mDatabase.teamDao().loadTeam(teamId);
+    }
+
+    public LiveData<List<GameEntity>> loadGames(final int teamId) {
+        return mDatabase.gameDao().loadGames(teamId);
+    }
+
+    public LiveData<List<GameEntity>> loadGameweekGames(final int gameweekNumber) {
+        return mDatabase.gameDao().loadGameweekGames(gameweekNumber);
     }
 }

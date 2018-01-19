@@ -20,5 +20,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="comment_light_background">#d6d6d6</color>
+    <color name="game_light_background">#d6d6d6</color>
 </resources>

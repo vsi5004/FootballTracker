@@ -26,13 +26,18 @@ import android.support.annotation.NonNull;
 
 import com.example.android.persistence.BasicApp;
 import com.example.android.persistence.DataRepository;
+import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
+
+import java.util.List;
 
 public class TeamViewModel extends AndroidViewModel {
 
     private final LiveData<TeamEntity> mObservableTeam;
 
     public ObservableField<TeamEntity> team = new ObservableField<>();
+
+    private final LiveData<List<GameEntity>> mObservableGames;
 
     private final int mTeamId;
 
@@ -41,12 +46,16 @@ public class TeamViewModel extends AndroidViewModel {
         super(application);
         mTeamId = teamId;
 
+        mObservableGames = repository.loadGames(teamId);
         mObservableTeam = repository.loadTeam(mTeamId);
     }
 
     /**
      * Expose the LiveData Comments query so the UI can observe it.
      */
+    public LiveData<List<GameEntity>> getGames() {
+        return mObservableGames;
+    }
 
     public LiveData<TeamEntity> getObservableProduct() {
         return mObservableTeam;

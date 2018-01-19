@@ -41,6 +41,26 @@
             layout="@layout/detail_team"
             app:team="@{teamViewModel.team}"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loading_comments_tv"
+            android:text="@string/loading_games"
+            app:visibleGone="@{isLoading}"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/game_list_wrapper">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/game_list"
+                android:contentDescription="@string/cd_games_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="LinearLayoutManager"
+                app:visibleGone="@{!isLoading}"/>
+        </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

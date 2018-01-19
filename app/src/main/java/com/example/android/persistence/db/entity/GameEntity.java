@@ -51,13 +51,11 @@ public class GameEntity implements Game {
     private int gameWeek;
     private boolean isFinished;
 
-    public GameEntity(int id, int team1Id, int team2Id, String time, int team1Score, int team2Score, int gameWeek, boolean isFinished) {
+    public GameEntity(int id, int team1Id, int team2Id, String time, int gameWeek, boolean isFinished) {
         this.id = id;
         this.team1Id = team1Id;
         this.team2Id = team2Id;
         this.time = time;
-        this.team1Score = team1Score;
-        this.team2Score = team2Score;
         this.gameWeek = gameWeek;
         this.isFinished = isFinished;
     }
@@ -65,25 +63,13 @@ public class GameEntity implements Game {
     public GameEntity() {
     }
 
-    public boolean getIsFinished() {
-        return isFinished;
-    }
-
-    public void setIsFinished(boolean finished) {
-        isFinished = finished;
-    }
-
-    public int getGameWeek() {
-        return gameWeek;
-    }
-
-    public void setGameWeek(int gameWeek) {
-        this.gameWeek = gameWeek;
-    }
-
     @Override
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -91,9 +77,17 @@ public class GameEntity implements Game {
         return team1Id;
     }
 
+    public void setTeam1Id(int team1Id) {
+        this.team1Id = team1Id;
+    }
+
     @Override
     public int getTeam2Id() {
         return team2Id;
+    }
+
+    public void setTeam2Id(int team2Id) {
+        this.team2Id = team2Id;
     }
 
     @Override
@@ -105,6 +99,7 @@ public class GameEntity implements Game {
         this.time = time;
     }
 
+    @Override
     public int getTeam1Score() {
         return team1Score;
     }
@@ -113,11 +108,29 @@ public class GameEntity implements Game {
         this.team1Score = team1Score;
     }
 
+    @Override
     public int getTeam2Score() {
         return team2Score;
     }
 
     public void setTeam2Score(int team2Score) {
         this.team2Score = team2Score;
+    }
+
+    @Override
+    public int getGameWeek() {
+        return gameWeek;
+    }
+
+    public void setGameWeek(int gameWeek) {
+        this.gameWeek = gameWeek;
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean finished) {
+        isFinished = finished;
     }
 }

@@ -28,14 +28,19 @@ import android.view.ViewGroup;
 
 import com.example.android.persistence.R;
 import com.example.android.persistence.databinding.TeamFragmentBinding;
+import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
+import com.example.android.persistence.model.Game;
 import com.example.android.persistence.viewmodel.TeamViewModel;
+
+import java.util.List;
 
 public class StandingsFragment extends Fragment {
 
     private static final String KEY_TEAM_ID = "team_id";
 
     private TeamFragmentBinding mBinding;
+    private GameAdapter mGameAdapter;
 
     @Nullable
     @Override
@@ -43,9 +48,19 @@ public class StandingsFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         // Inflate this data binding layout
         mBinding = DataBindingUtil.inflate(inflater, R.layout.team_fragment, container, false);
+        mGameAdapter = new GameAdapter(mGameClickCallback);
+        mBinding.gameList.setAdapter(mGameAdapter);
 
         return mBinding.getRoot();
     }
+
+    private final GameClickCallback mGameClickCallback = new GameClickCallback() {
+        @Override
+        public void onClick(Game game) {
+            // no-op
+
+        }
+    };
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -69,6 +84,19 @@ public class StandingsFragment extends Fragment {
             @Override
             public void onChanged(@Nullable TeamEntity teamEntity) {
                 model.setTeam(teamEntity);
+            }
+        });
+
+        // Observe comments
+        model.getGames().observe(this, new Observer<List<GameEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<GameEntity> commentEntities) {
+                if (commentEntities != null) {
+                    mBinding.setIsLoading(false);
+                    mGameAdapter.setGameList(commentEntities);
+                } else {
+                    mBinding.setIsLoading(true);
+                }
             }
         });
     }
