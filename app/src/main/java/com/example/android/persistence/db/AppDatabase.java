@@ -26,20 +26,20 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.util.Log;
 
 import com.example.android.persistence.AppExecutors;
 import com.example.android.persistence.db.converter.DateConverter;
+import com.example.android.persistence.db.dao.GameDao;
 import com.example.android.persistence.db.dao.TeamDao;
+import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.util.NetworkUtils;
 import com.example.android.persistence.util.OpenLigaJsonUtils;
 
-import org.json.JSONException;
-
+import java.util.HashMap;
 import java.util.List;
 
-@Database(entities = {TeamEntity.class}, version = 1)
+@Database(entities = {TeamEntity.class, GameEntity.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -49,6 +49,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "basic-sample-db";
 
     public abstract TeamDao teamDao();
+    public abstract GameDao gameDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
@@ -77,18 +78,15 @@ public abstract class AppDatabase extends RoomDatabase {
                     public void onCreate(@NonNull SupportSQLiteDatabase db) {
                         super.onCreate(db);
                         executors.diskIO().execute(() -> {
-                            // Add a delay to simulate a long-running operation
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
 
-                            String data = NetworkUtils.runQuery(NetworkUtils.QUERY_AVAILABLE_TEAMS);
-                            String matchDayData = NetworkUtils.runQuery(NetworkUtils.QUERY_CURRENT_MATCHDAY_GAMES);
-                            int currentGameweek = OpenLigaJsonUtils.getGameweekNumber(matchDayData);
+                            String allTeamsData = NetworkUtils.runQuery(NetworkUtils.QUERY_AVAILABLE_TEAMS);
                             String allMatchesData = NetworkUtils.runQuery(NetworkUtils.QUERY_ALL_GAMES);
-                            List<TeamEntity> teams = OpenLigaJsonUtils.parseTeams(data);
-                            teams = OpenLigaJsonUtils.initStatistics(allMatchesData,teams, currentGameweek);
+                            List<TeamEntity> teams = OpenLigaJsonUtils.parseTeams(allTeamsData);
+                            HashMap data = OpenLigaJsonUtils.parseGames(allMatchesData,teams);
 
-                            insertData(database, teams);
+                            insertData(database, (List<TeamEntity>)data.get("teams"),(List<GameEntity>)data.get("games"));
                             // notify that the database was created and it's ready to be used
                             database.setDatabaseCreated();
 
@@ -110,9 +108,10 @@ public abstract class AppDatabase extends RoomDatabase {
         mIsDatabaseCreated.postValue(true);
     }
 
-    private static void insertData(final AppDatabase database, final List<TeamEntity> teams) {
+    private static void insertData(final AppDatabase database, final List<TeamEntity> teams, final List<GameEntity> games) {
         database.runInTransaction(() -> {
             database.teamDao().insertAll(teams);
+            database.gameDao().insertAll(games);
         });
     }
 
