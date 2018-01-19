@@ -80,6 +80,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             // Add a delay to simulate a long-running operation
                             // Generate the data for pre-population
                             AppDatabase database = AppDatabase.getInstance(appContext, executors);
+
                             String data = NetworkUtils.runQuery(NetworkUtils.QUERY_AVAILABLE_TEAMS);
                             String matchDayData = NetworkUtils.runQuery(NetworkUtils.QUERY_CURRENT_MATCHDAY_GAMES);
                             int currentGameweek = OpenLigaJsonUtils.getGameweekNumber(matchDayData);

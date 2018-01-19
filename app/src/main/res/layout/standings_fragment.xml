@@ -24,6 +24,10 @@
         <variable
             name="isLoading"
             type="boolean" />
+
+        <variable
+            name="loadingMessage"
+            type="String" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -67,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/table_loading_standings"
+            android:text="@{loadingMessage}"
             android:textAlignment="center"
             app:visibleGone="@{isLoading}" />
 
