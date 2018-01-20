@@ -89,7 +89,7 @@ public class TeamListFragment extends Fragment {
         public void onClick(Team team) {
 
             if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
-                ((MainActivity) getActivity()).show(team);
+                ((StandingsActivity) getActivity()).show(team);
             }
         }
     };

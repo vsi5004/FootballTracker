@@ -53,8 +53,8 @@ import java.util.concurrent.TimeoutException;
 public class MainActivityTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(
-            MainActivity.class);
+    public ActivityTestRule<StandingsActivity> mActivityRule = new ActivityTestRule<>(
+            StandingsActivity.class);
 
     @Rule
     public CountingTaskExecutorRule mCountingTaskExecutorRule = new CountingTaskExecutorRule();
