@@ -24,10 +24,6 @@
         <variable
             name="isLoading"
             type="boolean" />
-
-        <variable
-            name="loadingMessage"
-            type="String" />
     </data>
 
     <android.support.constraint.ConstraintLayout

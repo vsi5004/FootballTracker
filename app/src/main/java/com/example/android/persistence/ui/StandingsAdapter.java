@@ -87,6 +87,7 @@ public class StandingsAdapter extends RecyclerView.Adapter<StandingsAdapter.Team
 
     @Override
     public void onBindViewHolder(TeamViewHolder holder, int position) {
+        mTeamList.get(position).setStanding(position+1);
         holder.binding.setTeam(mTeamList.get(position));
         holder.binding.executePendingBindings();
     }

@@ -32,25 +32,25 @@ public class TeamEntity implements Team, Comparable {
 
     @PrimaryKey
     private final int id;
-    @ColumnInfo(name = "name")
+
     private String name;
-    @ColumnInfo(name = "short_name")
+
     private String shortName;
-    @ColumnInfo(name = "icon_name")
+
     private String iconName;
-    @ColumnInfo(name = "standing")
+
     private int standing;
-    @ColumnInfo(name = "points")
+
     private int points;
-    @ColumnInfo(name = "wins")
+
     private int wins;
-    @ColumnInfo(name = "losses")
+
     private int losses;
-    @ColumnInfo(name = "ties")
+
     private int ties;
-    @ColumnInfo(name = "goals_scored")
+
     private int goalsScored;
-    @ColumnInfo(name = "goals_conceded")
+
     private int goalsConceded;
 
     //public TeamEntity(){

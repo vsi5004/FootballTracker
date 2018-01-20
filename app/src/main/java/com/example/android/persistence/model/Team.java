@@ -25,5 +25,6 @@ public interface Team {
     int getGamesPlayed();
     int getGoalDifference();
     int getStanding();
+    void setStanding(int position);
 
 }
