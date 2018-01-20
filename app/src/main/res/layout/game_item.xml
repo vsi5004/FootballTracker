@@ -15,7 +15,8 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="game"
@@ -23,24 +24,111 @@
         <variable name="callback"
             type="com.example.android.persistence.ui.GameClickCallback"/>
     </data>
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/game_light_background"
-        android:layout_marginStart="@dimen/game_horizontal_margin"
         android:layout_marginEnd="@dimen/game_horizontal_margin"
-
-        android:minHeight="@dimen/game_minHeight"
+        android:layout_marginStart="@dimen/game_horizontal_margin"
         android:onClick="@{() ->  callback.onClick(game)}"
         android:orientation="horizontal"
-        android:padding="8dp"
+        app:cardBackgroundColor="@color/game_light_background"
         app:cardUseCompatPadding="true">
-        <RelativeLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content"
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/tv_team1_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/comment_padding"
-                android:text="@{game.time}"/>
-        </RelativeLayout>
+                android:layout_marginStart="8dp"
+                android:text="@{game.team1Name}"
+                android:textSize="@dimen/game_list_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_team1_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_team1_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{@string/string_to_int(game.team1Score)}"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_score_divider"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_score_divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/score_divider"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_team1_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_team_logo"
+                android:maxHeight="28dp"
+                android:maxWidth="28dp"
+                android:scaleType="fitXY"
+                android:src="@{game.team1Icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_team2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{game.team2Name}"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/game_list_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/iv_team2_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_team2_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{@string/string_to_int(game.team2Score)}"
+                android:textAlignment="viewStart"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_score_divider"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_team2_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/content_description_team_logo"
+                android:maxHeight="28dp"
+                android:maxWidth="28dp"
+                android:scaleType="fitXY"
+                android:src="@{game.team2Icon}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </layout>

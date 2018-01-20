@@ -37,6 +37,20 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/loading_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/table_loading_standings"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleGone="@{isLoading}" />
+
+        <TextView
             android:id="@+id/tv_games_played"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,15 +79,6 @@
             android:text="@string/table_heading_points"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/loading_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@{loadingMessage}"
-            android:textAlignment="center"
-            app:visibleGone="@{isLoading}" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/teams_list"

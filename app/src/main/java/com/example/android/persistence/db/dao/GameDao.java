@@ -29,7 +29,7 @@ import java.util.List;
 
 @Dao
 public interface GameDao {
-    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId")
+    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId ORDER BY time ASC")
     LiveData<List<GameEntity>> loadGames(int teamId);
 
     @Query("SELECT * FROM games where gameWeek = :gameweekNumber")

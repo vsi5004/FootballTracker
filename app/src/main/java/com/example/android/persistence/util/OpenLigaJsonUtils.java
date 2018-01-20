@@ -2,6 +2,7 @@ package com.example.android.persistence.util;
 
 import android.util.Log;
 
+import com.example.android.persistence.db.converter.DateConverter;
 import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.model.Team;
@@ -11,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,9 +56,15 @@ public final class OpenLigaJsonUtils {
                 int gameId = gameJSON.getInt("MatchID");
                 int team1id = gameJSON.getJSONObject("Team1").getInt("TeamId");
                 int team2id = gameJSON.getJSONObject("Team2").getInt("TeamId");
+                TeamEntity team1 = getTeamById(team1id, teams);
+                String team1Name = team1.getShortName();
+                String team1Icon = team1.getIconName();
+                TeamEntity team2 = getTeamById(team2id, teams);
+                String team2Name = team2.getShortName();
+                String team2Icon = team2.getIconName();
                 boolean isFinished = gameJSON.getBoolean("MatchIsFinished");
-                String gameTime = gameJSON.getString("MatchDateTimeUTC");
-                GameEntity game = new GameEntity(gameId, team1id, team2id, gameTime, currentGameweek, isFinished);
+                Date gameTime = DateConverter.toDate(gameJSON.getString("MatchDateTimeUTC"));
+                GameEntity game = new GameEntity(gameId, team1id, team1Name, team1Icon, team2id, team2Name, team2Icon, gameTime, currentGameweek, isFinished);
                 if (isFinished) {
                     JSONArray results = gameJSON.getJSONArray("MatchResults");
                     JSONObject finalResult = results.getJSONObject(1);
@@ -73,6 +81,15 @@ public final class OpenLigaJsonUtils {
             e.printStackTrace();
         }
         return data;
+    }
+
+    private static TeamEntity getTeamById(int teamId, List<TeamEntity> teams) {
+        for (TeamEntity team : teams) {
+            if (teamId == team.getId()) {
+                return team;
+            }
+        }
+        return null;
     }
 
     private static List<TeamEntity> updateTeamStats(List<TeamEntity> teams, int team1id, int team2id, int team1Score, int team2Score) {

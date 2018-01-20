@@ -25,9 +25,11 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.android.persistence.databinding.GameItemBinding;
+import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.model.Game;
 import com.example.android.persistence.R;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +45,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.GameViewHolder
     }
 
     public void setGameList(final List<? extends Game> games) {
+
         if (mTeamGameList == null) {
+
             mTeamGameList = games;
             notifyItemRangeInserted(0, games.size());
         } else {

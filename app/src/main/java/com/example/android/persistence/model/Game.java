@@ -16,11 +16,17 @@
 
 package com.example.android.persistence.model;
 
+import java.util.Date;
+
 public interface Game {
     int getId();
     int getTeam1Id();
+    String getTeam1Name();
+    String getTeam1Icon();
     int getTeam2Id();
-    String getTime();
+    String getTeam2Name();
+    String getTeam2Icon();
+    Date getTime();
     int getTeam1Score();
     int getTeam2Score();
     int getGameWeek();

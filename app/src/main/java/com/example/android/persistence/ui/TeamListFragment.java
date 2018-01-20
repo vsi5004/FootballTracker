@@ -33,6 +33,7 @@ import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.model.Team;
 import com.example.android.persistence.viewmodel.StandingsListViewModel;
 
+import java.util.Collections;
 import java.util.List;
 
 public class TeamListFragment extends Fragment {
@@ -71,6 +72,7 @@ public class TeamListFragment extends Fragment {
             public void onChanged(@Nullable List<TeamEntity> teams) {
                 if (teams != null) {
                     mBinding.setIsLoading(false);
+                    Collections.sort(teams);
                     mStandingsAdapter.setTeamList(teams);
                 } else {
                     mBinding.setIsLoading(true);

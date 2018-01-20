@@ -28,7 +28,7 @@ import java.util.List;
 
 @Dao
 public interface TeamDao {
-    @Query("SELECT * FROM teams ORDER BY points DESC")
+    @Query("SELECT * FROM teams")
     LiveData<List<TeamEntity>> loadAllTeams();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -37,7 +37,7 @@
             android:padding="12dp">
 
             <ImageView
-                android:id="@+id/iv_team_logo"
+                android:id="@+id/iv_team1_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -50,15 +50,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_team_name"
+                android:id="@+id/tv_team1_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="@{team.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_team_logo"
-                app:layout_constraintStart_toEndOf="@+id/iv_team_logo"
-                app:layout_constraintTop_toTopOf="@+id/iv_team_logo" />
+                app:layout_constraintBottom_toBottomOf="@+id/iv_team1_logo"
+                app:layout_constraintStart_toEndOf="@+id/iv_team1_logo"
+                app:layout_constraintTop_toTopOf="@+id/iv_team1_logo" />
 
             <TextView
                 android:id="@+id/tv_team_standing"
@@ -72,7 +72,7 @@
                 android:textSize="@dimen/list_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_team_games_played"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_team1_name" />
 
             <TextView
                 android:id="@+id/tv_team_games_played"
@@ -84,7 +84,7 @@
                 android:textSize="@dimen/list_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_team1_name" />
 
             <TextView
                 android:id="@+id/tv_team_goal_difference"

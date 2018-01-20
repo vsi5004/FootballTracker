@@ -17,10 +17,28 @@
 package com.example.android.persistence.db.converter;
 
 import android.arch.persistence.room.TypeConverter;
+import android.icu.util.TimeZone;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
 
 public class DateConverter {
+    public static Date toDate(String timestamp) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY);
+
+        Date date = null;
+        try {
+            date = formatter.parse(timestamp.replaceAll("Z$", "+0000"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return timestamp == null ? null : date;
+    }
+
     @TypeConverter
     public static Date toDate(Long timestamp) {
         return timestamp == null ? null : new Date(timestamp);

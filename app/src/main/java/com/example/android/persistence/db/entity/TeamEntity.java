@@ -21,13 +21,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.example.android.persistence.model.Team;
 
 
 @Entity(indices = {@Index(value = "name",
         unique = true)}, tableName = "teams")
-public class TeamEntity implements Team {
+public class TeamEntity implements Team, Comparable {
 
     @PrimaryKey
     private final int id;
@@ -61,7 +62,7 @@ public class TeamEntity implements Team {
         this.name = name;
         this.shortName = shortName;
         //TODO fix this to check if icon exists in location, otherwise download it
-        this.iconName = "android.resource://com.example.android.persistence/drawable/"+shortName.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        this.iconName = "android.resource://com.example.android.persistence/drawable/" + shortName.replaceAll("[^a-zA-Z]", "").toLowerCase();
         this.standing = 0;
         this.wins = 0;
         this.losses = 0;
@@ -85,17 +86,19 @@ public class TeamEntity implements Team {
         this.points = getPoints();
     }
 
-    public int getGamesPlayed(){
-        return wins+losses+ties;
+    public int getGamesPlayed() {
+        return wins + losses + ties;
     }
 
-    public int getPoints(){
-        return 3*wins+ties;
+    public int getPoints() {
+        return 3 * wins + ties;
     }
 
-    public void setPoints(int points){this.points=getPoints();}
+    public void setPoints(int points) {
+        this.points = getPoints();
+    }
 
-    public int getGoalDifference(){
+    public int getGoalDifference() {
         return goalsScored - goalsConceded;
     }
 
@@ -184,15 +187,37 @@ public class TeamEntity implements Team {
         goalsConceded += numGoals;
     }
 
-    public void incrementWins(){
-        wins+=1;
+    public void incrementWins() {
+        wins += 1;
     }
 
-    public void incrementLosses(){
-        losses+=1;
+    public void incrementLosses() {
+        losses += 1;
     }
 
-    public void incrementTies(){
-        ties+=1;
+    public void incrementTies() {
+        ties += 1;
     }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+
+        if (((TeamEntity) o).getPoints() > getPoints()) {
+            return 1;
+        }
+        if (((TeamEntity) o).getPoints() == getPoints()) {
+            if(((TeamEntity) o).getGoalDifference() > getGoalDifference()){
+                return 1;
+            }
+            if(((TeamEntity) o).getGoalDifference() < getGoalDifference()){
+                return -1;
+            }
+            else {
+                return 0;
+            }
+        } else {
+            return -1;
+        }
+    }
+
 }
