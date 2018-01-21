@@ -15,25 +15,29 @@
   ~ limitations under the License.
   -->
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <variable name="team"
-                  type="com.example.android.persistence.model.Team"/>
+
+        <variable
+            name="team"
+            type="com.example.android.persistence.model.Team" />
     </data>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="@dimen/item_horizontal_margin"
         android:layout_marginEnd="@dimen/item_horizontal_margin"
+        android:layout_marginStart="@dimen/item_horizontal_margin"
+        android:orientation="horizontal"
         app:cardUseCompatPadding="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="95dp"
             android:padding="12dp">
 
             <ImageView
@@ -50,61 +54,155 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_team1_name"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_team_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="2dp"
                 android:text="@{team.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_team1_logo"
-                app:layout_constraintStart_toEndOf="@+id/iv_team1_logo"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_team1_logo" />
 
             <TextView
-                android:id="@+id/tv_team_standing"
+                android:id="@+id/tv_team_games_played_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="8dp"
-                android:text="@{@string/string_to_int(team.standing)}"
-                android:textAlignment="center"
-                android:textSize="@dimen/list_font_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_team_games_played"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team1_name" />
+                android:text="@string/table_heading_games_played"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_games_played"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_games_played"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_games_played" />
 
             <TextView
-                android:id="@+id/tv_team_games_played"
+                android:id="@+id/tv_team_points_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="84dp"
-                android:layout_marginTop="8dp"
-                android:text="@{@string/string_to_int(team.gamesPlayed)}"
-                android:textSize="@dimen/list_font_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_team1_name" />
-
-            <TextView
-                android:id="@+id/tv_team_goal_difference"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:text="@{@string/string_to_int(team.goalDifference)}"
-                android:textSize="@dimen/list_font_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:text="@string/table_heading_points"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_points"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_points"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_points" />
 
             <TextView
                 android:id="@+id/tv_team_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
+                android:layout_marginStart="@dimen/team_stats_spacing"
                 android:text="@{@string/string_to_int(team.points)}"
-                android:textSize="@dimen/list_font_size"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/tv_team_games_played"
+                app:layout_constraintTop_toTopOf="@+id/tv_team_games_played" />
+
+            <TextView
+                android:id="@+id/tv_team_wins_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_heading_wins"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_wins"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_wins"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_wins" />
+
+            <TextView
+                android:id="@+id/tv_team_wins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/team_stats_spacing"
+                android:text="@{@string/string_to_int(team.wins)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_team_points" />
+
+            <TextView
+                android:id="@+id/tv_team_ties_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_heading_ties"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_ties"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_ties"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_ties" />
+
+            <TextView
+                android:id="@+id/tv_team_ties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/team_stats_spacing"
+                android:text="@{@string/string_to_int(team.ties)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_team_wins" />
+
+            <TextView
+                android:id="@+id/tv_team_losses_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_heading_losses"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_losses"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_losses"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_losses" />
+
+            <TextView
+                android:id="@+id/tv_team_losses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/team_stats_spacing"
+                android:text="@{@string/string_to_int(team.losses)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_team_ties" />
+
+            <TextView
+                android:id="@+id/tv_team_scored_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_heading_scored"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_scored"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_scored"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_scored" />
+
+            <TextView
+                android:id="@+id/tv_team_scored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/team_stats_spacing"
+                android:text="@{@string/string_to_int(team.goalsScored)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_team_losses" />
+
+            <TextView
+                android:id="@+id/tv_team_conceded_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_heading_conceded"
+                android:textSize="@dimen/team_stats_label_font_size"
+                app:layout_constraintBottom_toTopOf="@+id/tv_team_conceded"
+                app:layout_constraintEnd_toEndOf="@+id/tv_team_conceded"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_conceded" />
+
+            <TextView
+                android:id="@+id/tv_team_conceded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/team_stats_spacing"
+                android:text="@{@string/string_to_int(team.goalsConceded)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_team_scored" />
 
             <android.support.constraint.Guideline
                 android:id="@+id/guideline"
@@ -112,6 +210,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.40816328" />
+
+            <TextView
+                android:id="@+id/tv_team_games_played"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/string_to_int(team.gamesPlayed)}"
+                android:textAlignment="center"
+                android:textSize="@dimen/team_stats_font_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_team_name" />
 
         </android.support.constraint.ConstraintLayout>
 

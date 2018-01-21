@@ -58,6 +58,7 @@ public class GameEntity implements Game, Comparable {
     private int gameWeek;
     private boolean isFinished;
 
+    @Ignore
     public GameEntity(int id, int team1Id, String team1Name, String team1Icon, int team2Id, String team2Name, String team2Icon, Date time, int gameWeek, boolean isFinished) {
         this.id = id;
         this.team1Id = team1Id;

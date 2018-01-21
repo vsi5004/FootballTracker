@@ -23,5 +23,8 @@
     <dimen name="comment_padding">8dp</dimen>
     <dimen name="game_minHeight">64dp</dimen>
     <dimen name="list_font_size">18sp</dimen>
+    <dimen name="team_stats_font_size">16sp</dimen>
+    <dimen name="team_stats_label_font_size">10sp</dimen>
+    <dimen name="team_stats_spacing">26dp</dimen>
     <dimen name="game_list_font_size">14sp</dimen>
 </resources>
