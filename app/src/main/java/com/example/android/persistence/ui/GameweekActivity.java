@@ -16,10 +16,10 @@
 
 package com.example.android.persistence.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -28,24 +28,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.android.persistence.R;
+import com.example.android.persistence.model.Game;
 import com.example.android.persistence.model.Team;
 
-public class StandingsActivity extends AppCompatActivity {
+public class GameweekActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.gameweek_activity);
         setupToolbar();
         setupNavigationDrawer();
 
         // Add team list fragment if this is first creation
         if (savedInstanceState == null) {
-            TeamListFragment fragment = new TeamListFragment();
+            GameweekListFragment fragment = new GameweekListFragment();
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, fragment, TeamListFragment.TAG).commit();
+                    .add(R.id.gameweek_fragment_container, fragment, GameweekListFragment.TAG).commit();
         }
     }
 
@@ -77,16 +78,16 @@ public class StandingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Shows the team detail fragment */
-    public void show(Team team) {
+    /** Shows the game detail fragment */
+    public void show(Game game) {
 
-        StandingsFragment standingsFragment = StandingsFragment.forTeam(team.getId());
+        GameFragment gameweekListFragment = GameFragment.forGame(game.getId());
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .addToBackStack("team")
-                .replace(R.id.fragment_container,
-                        standingsFragment, null).commit();
+                .addToBackStack("game")
+                .replace(R.id.gameweek_fragment_container,
+                        gameweekListFragment, null).commit();
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
@@ -96,11 +97,10 @@ public class StandingsActivity extends AppCompatActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.standings_navigation_menu_item:
-                                // Do nothing, we're already on that screen
+                                NavUtils.navigateUpFromSameTask(GameweekActivity.this);
                                 break;
                             case R.id.gameweek_navigation_menu_item:
-                                Intent intent = new Intent(StandingsActivity.this, GameweekActivity.class);
-                                startActivity(intent);
+                                //do nothing
                                 break;
                             default:
                                 break;

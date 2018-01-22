@@ -22,26 +22,22 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.MatchdayEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 
 import java.util.List;
 
 @Dao
-public interface GameDao {
-    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId ORDER BY time ASC")
-    LiveData<List<GameEntity>> loadGames(int teamId);
-
-    @Query("SELECT * FROM games where gameWeek = :gameweekNumber")
-    LiveData<List<GameEntity>> loadGameweekGames(int gameweekNumber);
-
-    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId")
-    List<GameEntity> loadGamesSync(int teamId);
-
-    @Query("select * from games where id = :gameId")
-    LiveData<GameEntity> loadGame(int gameId);
+public interface MatchdayDao {
+    @Query("SELECT * FROM matchdays")
+    LiveData<List<MatchdayEntity>> loadAllMatchdays();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<GameEntity> games);
-}
+    void insertAll(List<MatchdayEntity> matchdays);
 
+    @Query("select * from matchdays")
+    MatchdayEntity loadMatchday();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(MatchdayEntity matchday);
+}

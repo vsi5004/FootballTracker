@@ -87,13 +87,13 @@ public class StandingsFragment extends Fragment {
             }
         });
 
-        // Observe comments
+        // Observe games
         model.getGames().observe(this, new Observer<List<GameEntity>>() {
             @Override
-            public void onChanged(@Nullable List<GameEntity> commentEntities) {
-                if (commentEntities != null) {
+            public void onChanged(@Nullable List<GameEntity> gameEntities) {
+                if (gameEntities != null) {
                     mBinding.setIsLoading(false);
-                    mGameAdapter.setGameList(commentEntities);
+                    mGameAdapter.setGameList(gameEntities);
                 } else {
                     mBinding.setIsLoading(true);
                 }

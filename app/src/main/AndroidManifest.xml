@@ -35,12 +35,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--activity
+        <activity
             android:name="com.example.android.persistence.ui.GameweekActivity"
             android:parentActivityName=".ui.StandingsActivity"
             tools:ignore="UnusedAttribute">
 
-        </activity-->
+        </activity>
     </application>
 
 </manifest>
