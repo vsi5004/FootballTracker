@@ -31,5 +31,6 @@ public interface Game {
     int getTeam2Score();
     int getGameWeek();
     boolean getIsFinished();
+    Date getLastEdited();
 
 }

@@ -53,6 +53,7 @@ public class GameEntity implements Game, Comparable {
     private String team2Name;
     private String team2Icon;
     private Date time;
+    private Date lastEdited;
     private int team1Score;
     private int team2Score;
     private int gameWeek;
@@ -70,9 +71,19 @@ public class GameEntity implements Game, Comparable {
         this.time = time;
         this.gameWeek = gameWeek;
         this.isFinished = isFinished;
+        this.lastEdited = new Date();
     }
 
     public GameEntity() {
+    }
+
+    @Override
+    public Date getLastEdited() {
+        return lastEdited;
+    }
+
+    public void setLastEdited(Date lastEdited) {
+        this.lastEdited = lastEdited;
     }
 
     @Override

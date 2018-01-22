@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import com.example.android.persistence.R;
 import com.example.android.persistence.databinding.GameweekFragmentBinding;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.MatchdayEntity;
 import com.example.android.persistence.model.Game;
+import com.example.android.persistence.model.Matchday;
 import com.example.android.persistence.viewmodel.GameweekListViewModel;
 
 import java.util.List;
@@ -57,13 +59,24 @@ public class GameweekListFragment extends Fragment {
             public void onChanged(@Nullable List<GameEntity> myGames) {
                 if (myGames != null) {
                     mBinding.setIsLoading(false);
-                    Log.d("UI","Set GameWeekAdapter gameList to list with size "+myGames.size());
                     mGameWeekAdapter.setGameList(myGames);
                 } else {
                     mBinding.setIsLoading(true);
                 }
                 // espresso does not know how to wait for data binding's loop so we execute changes
                 // sync.
+                mBinding.executePendingBindings();
+            }
+        });
+        viewModel.getMatchday().observe(this, new Observer<MatchdayEntity>() {
+            @Override
+            public void onChanged(@Nullable MatchdayEntity matchday) {
+                if (matchday != null) {
+                    mBinding.setIsLoading(false);
+                    mBinding.setGameweek(matchday.getName());
+                } else {
+                    mBinding.setIsLoading(true);
+                }
                 mBinding.executePendingBindings();
             }
         });
