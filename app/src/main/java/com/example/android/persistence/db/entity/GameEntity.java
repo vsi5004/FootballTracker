@@ -27,6 +27,7 @@ import android.support.annotation.NonNull;
 import com.example.android.persistence.model.Game;
 import com.example.android.persistence.model.Team;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -197,5 +198,23 @@ public class GameEntity implements Game, Comparable {
     public int compareTo(@NonNull Object o) {
         return ((GameEntity) o).getTime().compareTo(time);
 
+    }
+
+    public String getWeekdayFormatted(){
+        SimpleDateFormat formatter = new SimpleDateFormat("E");
+        String dateString = formatter.format(time);
+        return dateString;
+    }
+
+    public String getDateFormatted(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd");
+        String dateString = formatter.format(time);
+        return dateString;
+    }
+
+    public String getTimeFormatted(){
+        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");
+        String dateString = formatter.format(time);
+        return dateString;
     }
 }

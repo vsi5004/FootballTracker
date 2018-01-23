@@ -16,10 +16,16 @@
 
 package com.example.android.persistence.ui;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.android.persistence.R;
 
 
 public class BindingAdapters {

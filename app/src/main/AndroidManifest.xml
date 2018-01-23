@@ -19,6 +19,7 @@
     package="com.example.android.persistence">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".BasicApp"
@@ -39,8 +40,11 @@
             android:name="com.example.android.persistence.ui.GameweekActivity"
             android:parentActivityName=".ui.StandingsActivity"
             tools:ignore="UnusedAttribute">
-
         </activity>
+        <service
+            android:name=".service.updateGameweekService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
     </application>
 
 </manifest>

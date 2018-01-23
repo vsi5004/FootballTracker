@@ -20,17 +20,35 @@ import java.util.Date;
 
 public interface Game {
     int getId();
+
     int getTeam1Id();
+
     String getTeam1Name();
+
     String getTeam1Icon();
+
     int getTeam2Id();
+
     String getTeam2Name();
+
     String getTeam2Icon();
+
     Date getTime();
+
     int getTeam1Score();
+
     int getTeam2Score();
+
     int getGameWeek();
+
     boolean getIsFinished();
+
     Date getLastEdited();
+
+    String getWeekdayFormatted();
+
+    String getDateFormatted();
+
+    String getTimeFormatted();
 
 }
