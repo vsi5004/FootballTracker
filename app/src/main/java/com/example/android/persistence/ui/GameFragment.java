@@ -14,13 +14,18 @@ import android.view.ViewGroup;
 import com.example.android.persistence.R;
 import com.example.android.persistence.databinding.GameFragmentBinding;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
 import com.example.android.persistence.viewmodel.GameViewModel;
+
+import java.util.List;
 
 public class GameFragment extends Fragment {
 
     private static final String KEY_GAME_ID = "game_id";
 
     private GameFragmentBinding mBinding;
+
+    private GoalAdapter mGoalAdapter;
 
     @Nullable
     @Override
@@ -29,6 +34,9 @@ public class GameFragment extends Fragment {
         // Inflate this data binding layout
         mBinding = DataBindingUtil.inflate(inflater, R.layout.game_fragment, container, false);
 
+        // Create and set the adapter for the RecyclerView.
+        mGoalAdapter = new GoalAdapter();
+        mBinding.goalList.setAdapter(mGoalAdapter);
         return mBinding.getRoot();
     }
 
@@ -54,6 +62,19 @@ public class GameFragment extends Fragment {
             @Override
             public void onChanged(@Nullable GameEntity gameEntity) {
                 model.setGame(gameEntity);
+            }
+        });
+
+        // Observe comments
+        model.getGoals().observe(this, new Observer<List<GoalEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<GoalEntity> goalEntities) {
+                if (goalEntities != null) {
+                    mBinding.setIsLoading(false);
+                    mGoalAdapter.setGoalList(goalEntities);
+                } else {
+                    mBinding.setIsLoading(true);
+                }
             }
         });
     }

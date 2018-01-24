@@ -29,7 +29,7 @@ import java.util.List;
 
 @Dao
 public interface GoalDao {
-    @Query("SELECT * FROM goals where gameId = :gameId")
+    @Query("SELECT * FROM goals where gameId = :gameId ORDER BY matchMinute ASC")
     LiveData<List<GoalEntity>> loadGoals(int gameId);
 
     @Query("select * from goals where id = :goalId")

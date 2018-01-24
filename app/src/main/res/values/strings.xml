@@ -40,4 +40,6 @@
     <string name="loading_games">Loading Games</string>
     <string name="cd_games_list">Games</string>
     <string name="score_divider">:</string>
+    <string name="loading_goals">Loading Goals</string>
+    <string name="cd_goals_list">List of Goals</string>
 </resources>

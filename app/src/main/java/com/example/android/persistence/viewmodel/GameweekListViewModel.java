@@ -48,6 +48,10 @@ public class GameweekListViewModel extends AndroidViewModel {
         AppExecutors executors = new AppExecutors();
         executors.diskIO().execute(() -> {
             MatchdayEntity currentMatchday = ((BasicApp) application).getRepository().getMatchday();
+            //TODO remove hardcoded value!!!!
+            currentMatchday.setId(19);
+            currentMatchday.setName("Gameweek 19");
+
             mObservableMatchday.postValue(currentMatchday);
             LiveData<List<GameEntity>> games = ((BasicApp) application).getRepository().getGames(currentMatchday.getId());
 

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.android.persistence.db.AppDatabase;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
 import com.example.android.persistence.db.entity.MatchdayEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.util.NetworkUtils;
@@ -65,7 +66,7 @@ public class DataRepository {
     }
 
     public LiveData<GameEntity> loadGame(final int gameId) {
-        Log.d("DATA","DataRepoReturned Game: "+gameId);
+        Log.d("DATA", "DataRepoReturned Game: " + gameId);
         return mDatabase.gameDao().loadGame(gameId);
     }
 
@@ -79,5 +80,9 @@ public class DataRepository {
 
     public MatchdayEntity getMatchday() {
         return mDatabase.matchdayDao().loadMatchday();
+    }
+
+    public LiveData<List<GoalEntity>> loadGoals(int mGameId) {
+        return mDatabase.goalDao().loadGoals(mGameId);
     }
 }

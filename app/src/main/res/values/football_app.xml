@@ -17,4 +17,5 @@
 
 <resources>
     <string name="string_to_int">%d</string>
+    <string name="int_to_MatchMinute">" "%d\"</string>
 </resources>

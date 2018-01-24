@@ -11,6 +11,9 @@ import android.support.annotation.NonNull;
 import com.example.android.persistence.BasicApp;
 import com.example.android.persistence.DataRepository;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
+
+import java.util.List;
 
 public class GameViewModel extends AndroidViewModel {
 
@@ -20,16 +23,23 @@ public class GameViewModel extends AndroidViewModel {
 
     private final int mGameId;
 
+    private final LiveData<List<GoalEntity>> mObservableGoals;
+
     public GameViewModel(@NonNull Application application, DataRepository repository,
                          final int gameId) {
         super(application);
         mGameId = gameId;
 
         mObservableGame = repository.loadGame(mGameId);
+        mObservableGoals = repository.loadGoals(mGameId);
     }
 
     public LiveData<GameEntity> getObservableGame() {
         return mObservableGame;
+    }
+
+    public LiveData<List<GoalEntity>> getGoals(){
+        return mObservableGoals;
     }
 
     public void setGame(GameEntity game) {
