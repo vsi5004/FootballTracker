@@ -30,9 +30,11 @@ import android.support.annotation.VisibleForTesting;
 import com.example.android.persistence.AppExecutors;
 import com.example.android.persistence.db.converter.DateConverter;
 import com.example.android.persistence.db.dao.GameDao;
+import com.example.android.persistence.db.dao.GoalDao;
 import com.example.android.persistence.db.dao.MatchdayDao;
 import com.example.android.persistence.db.dao.TeamDao;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
 import com.example.android.persistence.db.entity.MatchdayEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.util.NetworkUtils;
@@ -41,7 +43,7 @@ import com.example.android.persistence.util.OpenLigaJsonUtils;
 import java.util.HashMap;
 import java.util.List;
 
-@Database(entities = {TeamEntity.class, GameEntity.class, MatchdayEntity.class}, version = 1)
+@Database(entities = {TeamEntity.class, GameEntity.class, MatchdayEntity.class, GoalEntity.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
@@ -53,6 +55,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TeamDao teamDao();
     public abstract GameDao gameDao();
     public abstract MatchdayDao matchdayDao();
+    public abstract GoalDao goalDao();
 
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();
 
@@ -90,7 +93,7 @@ public abstract class AppDatabase extends RoomDatabase {
                             HashMap data = OpenLigaJsonUtils.parseGames(allMatchesData,teams);
                             int currentMatchday = OpenLigaJsonUtils.getGameweekNumber(NetworkUtils.runQuery(NetworkUtils.QUERY_CURRENT_MATCHDAY_GAMES));
                             MatchdayEntity currMatchday = new MatchdayEntity(currentMatchday);
-                            insertData(database, (List<TeamEntity>)data.get("teams"),(List<GameEntity>)data.get("games"), currMatchday);
+                            insertData(database, (List<TeamEntity>)data.get("teams"),(List<GameEntity>)data.get("games"), (List<GoalEntity>)data.get("goals"), currMatchday);
                             // notify that the database was created and it's ready to be used
                             database.setDatabaseCreated();
 
@@ -112,10 +115,11 @@ public abstract class AppDatabase extends RoomDatabase {
         mIsDatabaseCreated.postValue(true);
     }
 
-    private static void insertData(final AppDatabase database, final List<TeamEntity> teams, final List<GameEntity> games, final MatchdayEntity matchday) {
+    private static void insertData(final AppDatabase database, final List<TeamEntity> teams, final List<GameEntity> games, final List<GoalEntity> goals, final MatchdayEntity matchday) {
         database.runInTransaction(() -> {
             database.teamDao().insertAll(teams);
             database.gameDao().insertAll(games);
+            database.goalDao().insertAll(goals);
             database.matchdayDao().insert(matchday);
         });
     }

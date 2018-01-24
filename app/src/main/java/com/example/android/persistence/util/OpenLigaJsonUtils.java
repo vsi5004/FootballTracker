@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.example.android.persistence.db.converter.DateConverter;
 import com.example.android.persistence.db.entity.GameEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
-import com.example.android.persistence.model.Team;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class OpenLigaJsonUtils {
 
@@ -44,9 +43,11 @@ public final class OpenLigaJsonUtils {
 
     public static HashMap<String, List> parseGames(String jsonInput, List<TeamEntity> teams) {
         List<GameEntity> games = new ArrayList<>();
+        List<GoalEntity> goals = new ArrayList<>();
         HashMap<String, List> data = new HashMap();
         data.put("teams", teams);
         data.put("games", games);
+        data.put("goals", goals);
         JSONArray gamesArray = null;
         try {
             gamesArray = new JSONArray(jsonInput);
@@ -73,6 +74,7 @@ public final class OpenLigaJsonUtils {
                     teams = updateTeamStats(teams, team1id, team2id, team1Score, team2Score);
                     game.setTeam1Score(team1Score);
                     game.setTeam2Score(team2Score);
+                    goals = parseGoals(goals, gameJSON, gameId);
                 }
                 games.add(game);
             }
@@ -81,6 +83,23 @@ public final class OpenLigaJsonUtils {
             e.printStackTrace();
         }
         return data;
+    }
+
+    private static List<GoalEntity> parseGoals(List<GoalEntity> goals, JSONObject gameJSON, int gameId) throws JSONException {
+        JSONArray goalsArray = gameJSON.getJSONArray("Goals");
+        if (goalsArray != null) {
+            for (int n = 0; n < goalsArray.length(); n++) {
+                JSONObject jsonGoal = goalsArray.getJSONObject(n);
+                Log.d("DATA","Loading "+jsonGoal.toString());
+                int goalId = jsonGoal.getInt("GoalID");
+                int team1Goals = jsonGoal.getInt("ScoreTeam1");
+                int team2Goals = jsonGoal.getInt("ScoreTeam2");
+                String scorerName = jsonGoal.getString("GoalGetterName");
+                int matchMinute = (jsonGoal.getString("MatchMinute")=="null"?0:jsonGoal.getInt("MatchMinute"));
+                goals.add(new GoalEntity(goalId, gameId, team1Goals, team2Goals, scorerName, matchMinute));
+            }
+        }
+        return goals;
     }
 
     private static TeamEntity getTeamById(int teamId, List<TeamEntity> teams) {

@@ -23,25 +23,22 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.android.persistence.db.entity.GameEntity;
-import com.example.android.persistence.db.entity.TeamEntity;
+import com.example.android.persistence.db.entity.GoalEntity;
 
 import java.util.List;
 
 @Dao
-public interface GameDao {
-    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId ORDER BY time ASC")
-    LiveData<List<GameEntity>> loadGames(int teamId);
+public interface GoalDao {
+    @Query("SELECT * FROM goals where gameId = :gameId")
+    LiveData<List<GoalEntity>> loadGoals(int gameId);
 
-    @Query("SELECT * FROM games where gameWeek = :gameweekNumber ORDER BY time ASC")
-    LiveData<List<GameEntity>> loadGameweekGames(int gameweekNumber);
-
-    @Query("SELECT * FROM games where team1Id = :teamId Or team2Id = :teamId")
-    List<GameEntity> loadGamesSync(int teamId);
-
-    @Query("select * from games where id = :gameId")
-    LiveData<GameEntity> loadGame(int gameId);
+    @Query("select * from goals where id = :goalId")
+    LiveData<GoalEntity> loadGoal(int goalId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertAll(List<GameEntity> games);
+    void insertAll(List<GoalEntity> goals);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(GoalEntity goal);
 }
 

@@ -213,7 +213,7 @@ public class GameEntity implements Game, Comparable {
     }
 
     public String getTimeFormatted(){
-        SimpleDateFormat formatter = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
         String dateString = formatter.format(time);
         return dateString;
     }
