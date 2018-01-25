@@ -28,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.android.persistence.R;
+import com.example.android.persistence.model.Game;
 import com.example.android.persistence.model.Team;
 
 public class StandingsActivity extends AppCompatActivity {
@@ -87,6 +88,18 @@ public class StandingsActivity extends AppCompatActivity {
                 .addToBackStack("team")
                 .replace(R.id.fragment_container,
                         standingsFragment, null).commit();
+    }
+
+    /** Shows the game detail fragment */
+    public void show(Game game) {
+
+        GameFragment gameFragment = GameFragment.forGame(game.getId());
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack("game")
+                .replace(R.id.fragment_container,
+                        gameFragment, null).commit();
     }
 
     private void setupDrawerContent(NavigationView navigationView) {

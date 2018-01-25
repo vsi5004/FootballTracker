@@ -16,6 +16,7 @@
 
 package com.example.android.persistence.ui;
 
+import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -31,6 +32,7 @@ import com.example.android.persistence.databinding.TeamFragmentBinding;
 import com.example.android.persistence.db.entity.GameEntity;
 import com.example.android.persistence.db.entity.TeamEntity;
 import com.example.android.persistence.model.Game;
+import com.example.android.persistence.model.Team;
 import com.example.android.persistence.viewmodel.TeamViewModel;
 
 import java.util.List;
@@ -53,14 +55,6 @@ public class StandingsFragment extends Fragment {
 
         return mBinding.getRoot();
     }
-
-    private final GameClickCallback mGameClickCallback = new GameClickCallback() {
-        @Override
-        public void onClick(Game game) {
-            // no-op
-
-        }
-    };
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -100,6 +94,16 @@ public class StandingsFragment extends Fragment {
             }
         });
     }
+
+    private final GameClickCallback mGameClickCallback = new GameClickCallback() {
+        @Override
+        public void onClick(Game game) {
+
+            if (getLifecycle().getCurrentState().isAtLeast(Lifecycle.State.STARTED)) {
+                ((StandingsActivity) getActivity()).show(game);
+            }
+        }
+    };
 
     /** Creates team fragment for specific team ID */
     public static StandingsFragment forTeam(int teamId) {
