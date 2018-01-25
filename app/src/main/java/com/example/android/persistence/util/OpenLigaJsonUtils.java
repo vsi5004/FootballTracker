@@ -96,7 +96,9 @@ public final class OpenLigaJsonUtils {
                 int team2Goals = jsonGoal.getInt("ScoreTeam2");
                 String scorerName = jsonGoal.getString("GoalGetterName");
                 int matchMinute = (jsonGoal.getString("MatchMinute")=="null"?0:jsonGoal.getInt("MatchMinute"));
-                goals.add(new GoalEntity(goalId, gameId, team1Goals, team2Goals, scorerName, matchMinute));
+                if(!(team1Goals == 0 && team2Goals == 0)){
+                    goals.add(new GoalEntity(goalId, gameId, team1Goals, team2Goals, scorerName, matchMinute));
+                }
             }
         }
         return goals;
